@@ -1,6 +1,10 @@
 package main
 
-import "osstp-go-hive/routers"
+import (
+	core_database "osstp-go-hive/go-core/pkg/database"
+	core_viper "osstp-go-hive/go-core/pkg/viper"
+	"osstp-go-hive/system/command"
+)
 
 //go:generate go env -w GO111MODULE=on
 //go:generate go env -w GOPROXY=https://goproxy.cn,direct
@@ -8,9 +12,12 @@ import "osstp-go-hive/routers"
 //go:generate go mod tidy
 //go:generate go mod download
 
-// @Summary	创建文章
-
 func main() {
-	r := routers.InitRouter()
-	r.Run()
+	//go: cobra方式 启动
+	command.Execute()
+
+	core_viper.Viper(core_database.DBdd, "/system/config/settings.yaml")
+	// print(core_database.Config.Database.port)
+
+	core_database.Init()
 }
