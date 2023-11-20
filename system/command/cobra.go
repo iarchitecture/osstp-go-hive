@@ -18,7 +18,6 @@ var rootCommand = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("run HIVE server...")
 
-		InitServer()
 	},
 }
 
@@ -26,7 +25,7 @@ func appInfo() {
 	fmt.Printf("%s\n", `欢迎使用 `+`HIVE`)
 }
 
-func init() {
+func Init() {
 	routers.InitRouters()
 }
 
