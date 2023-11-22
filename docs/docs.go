@@ -10,6 +10,7 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
+        "termsOfService": "https://github.com/",
         "contact": {},
         "version": "{{.Version}}"
     },
@@ -18,12 +19,21 @@ const docTemplate = `{
     "paths": {
         "/auth/captcha": {
             "get": {
-                "description": "获取验证码",
-                "tags": [
-                    "登录"
+                "consumes": [
+                    "application/json"
                 ],
-                "summary": "获取验证码",
-                "responses": {}
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CaptchaResult"
+                ],
+                "summary": "获取验证码API",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         }
     }
@@ -31,12 +41,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "1.0",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "HIVE",
+	Description:      "Go 语言编程",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -1,15 +1,16 @@
 package admin
 
 import (
-	"osstp-go-hive/system/app/apis/admin"
+	"osstp-go-hive/system/app/admin/api"
 
 	"github.com/gin-gonic/gin"
 )
 
 func RegisterSystemRouters(engine *gin.Engine) {
 
-	engine.POST("/auth/captcha", admin.CaptchaApi{}.GenerateCaptchaApiHandler)
-	engine.POST("/auth/login", admin.LoginApi{}.Login)
+	engine.GET("/auth/captcha", api.CaptchaApi{}.GenerateCaptchaApiHandler)
+	engine.POST("/auth/register", api.UserApi{}.Register)
+	engine.POST("/auth/login", api.UserApi{}.Login)
 
 	// adminRouter := engine.Group("/admin/auth")
 	// adminRouter.Use()

@@ -1,11 +1,9 @@
 package main
 
 import (
-	core_database "osstp-go-hive/go-core/pkg/database"
-	core_global "osstp-go-hive/go-core/pkg/global"
-	core_viper "osstp-go-hive/go-core/pkg/viper"
 	"osstp-go-hive/system/command"
 	"osstp-go-hive/system/global"
+	"osstp-go-hive/system/initialize"
 )
 
 //go:generate go env -w GO111MODULE=on
@@ -15,10 +13,18 @@ import (
 //go:generate go mod download
 
 func init() {
-	// 配置全局变量：core_global.Core_config
-	core_viper.Viper(&core_global.Core_config, "/system/config/config_settings.yaml")
-	global.DB = core_database.InitMysql(core_global.Core_config.MysqlConfig)
+	initialize.InitViper()
+	global.DB = initialize.InitDatabse()
+
+	initialize.DatabaseAutoMigrate()
+
+	global.Router = initialize.InitRouters()
 }
+
+//	@title			HIVE
+//	@version		1.0
+//	@description	Go 语言编程
+//	@termsOfService	https://github.com/
 
 func main() {
 
